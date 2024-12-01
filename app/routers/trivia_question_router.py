@@ -1,12 +1,9 @@
-import json
 import sys
-from fastapi import HTTPException, status
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # para importar modulos de la app
-from models import TriviaQuestionPydantic, TriviaQuestionAlchemy, QuestionAlchemy
-from database import get_connection
+from fastapi import HTTPException, status, APIRouter
 
-from fastapi import APIRouter
+from app.models import TriviaQuestionPydantic, TriviaQuestionAlchemy, QuestionAlchemy
+from app.database import get_connection
+
 router = APIRouter()
 
 ITEM_NO_ENCONTRADO = "Pregunta no encontrada."
@@ -62,7 +59,10 @@ async def read_trivia_questions(trivia_id) -> list[TriviaQuestionPydantic]:
         conexion = get_connection()
         sqlalchemy_trivia_questions = conexion.query(TriviaQuestionAlchemy).filter_by(trivia_id = trivia_id).all()
         pydantic_trivia_questions = [TriviaQuestionPydantic.from_orm(question) for question in sqlalchemy_trivia_questions]
-        return pydantic_trivia_questions
+        if len(pydantic_trivia_questions) > 0:
+            return pydantic_trivia_questions
+        else:
+            raise HTTPException(status_code=404, detail=ITEM_NO_ENCONTRADO)
     except Exception as ex:
         logging(ex)
     finally:

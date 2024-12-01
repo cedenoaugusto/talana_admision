@@ -1,11 +1,7 @@
-import sys
-from fastapi import HTTPException, status
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # para importar modulos de la app
-from models import TriviaUserPydantic, TriviaUserAlchemy
-from database import get_connection#, add_item
+from fastapi import HTTPException, status, APIRouter
+from app.models import TriviaUserPydantic, TriviaUserAlchemy
+from app.database import get_connection
 
-from fastapi import APIRouter
 router = APIRouter()
 
 ITEM_NO_ENCONTRADO = "Usuario no encontrado."
@@ -54,7 +50,10 @@ async def read_trivia_users(trivia_id) -> list[TriviaUserPydantic]:
         conexion = get_connection()
         sqlalchemy_trivia_users = conexion.query(TriviaUserAlchemy).filter_by(trivia_id = trivia_id).all()
         pydantic_trivia_users = [TriviaUserPydantic.from_orm(user) for user in sqlalchemy_trivia_users]
-        return pydantic_trivia_users
+        if len(pydantic_trivia_users) > 0:
+            return pydantic_trivia_users
+        else:
+            raise HTTPException(status_code=404, detail=ITEM_NO_ENCONTRADO)
     except Exception as ex:
         logging(ex)
     finally:
@@ -62,7 +61,7 @@ async def read_trivia_users(trivia_id) -> list[TriviaUserPydantic]:
     
 @router.delete("/trivias/{trivia_id}/users/{user_id}", status_code=status.HTTP_200_OK, tags=["trivias"])
 async def delete_trivia_user(trivia_id: int, user_id: int):
-    """Eliminar un usuario de trivia"""
+    """Eliminar un usuario de una trivia"""
     try:
         conexion = get_connection()
         registro = conexion.query(TriviaUserAlchemy).filter(

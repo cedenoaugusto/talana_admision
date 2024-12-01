@@ -1,8 +1,8 @@
-import os
 import sys
 import uvicorn
-
 from fastapi import FastAPI
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent)) # obtiene la ruta de la carpeta actual y la registra en el path
 from app.routers import user_router, question_router, trivia_router, trivia_user_router, trivia_question_router
 
 app = FastAPI()

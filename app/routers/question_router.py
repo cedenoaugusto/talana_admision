@@ -1,12 +1,9 @@
 import json
-import sys
-from fastapi import HTTPException, status
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # para importar modulos de la app
-from models import QuestionPydantic, QuestionAlchemy, AnswerAlchemy
-import database
+from fastapi import HTTPException, status, APIRouter
 
-from fastapi import APIRouter
+from app.models import QuestionPydantic, QuestionAlchemy, AnswerAlchemy
+from app.database import get_connection
+
 router = APIRouter()
 
 ITEM_NO_ENCONTRADO = "Pregunta no encontrada."
@@ -25,7 +22,7 @@ def add_question(question: QuestionPydantic):
             categoria = question.categoria,
             estado = 'activo' if question.estado is None else question.estado,
         )
-        conexion = database.get_connection()
+        conexion = get_connection()
         conexion.add(pregunta)
         conexion.commit()
         pregunta_id = pregunta.id
@@ -59,7 +56,7 @@ async def create_question(question: QuestionPydantic):
 async def read_questions() -> list[QuestionPydantic]:
     """Leer todas las preguntas"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_questions = conexion.query(QuestionAlchemy).filter(QuestionAlchemy.estado != "eliminado").all()
         pydantic_questions = [QuestionPydantic.from_orm(question) for question in sqlalchemy_questions]
         return pydantic_questions
@@ -72,7 +69,7 @@ async def read_questions() -> list[QuestionPydantic]:
 async def read_question(question_id) -> QuestionPydantic:
     """Lee una pregunta"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_question = conexion.query(QuestionAlchemy).filter_by(id = question_id).first()
         if sqlalchemy_question:
             pydantic_question = QuestionPydantic.from_orm(sqlalchemy_question)
@@ -88,7 +85,7 @@ async def read_question(question_id) -> QuestionPydantic:
 async def update_question(question_id: int, question_object: QuestionPydantic):
     """Actualizar pregunta"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         pregunta = conexion.query(QuestionAlchemy).filter_by(id = question_id).first()
         if not pregunta:
             raise HTTPException(status_code=404, detail=ITEM_NO_ENCONTRADO)
@@ -127,7 +124,7 @@ async def update_question(question_id: int, question_object: QuestionPydantic):
 async def delete_question(question_id: int):
     """Eliminar una pregunta"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         pregunta = conexion.query(QuestionAlchemy).filter_by(id = question_id).first()
         if not pregunta:
             raise HTTPException(status_code=404, detail=ITEM_NO_ENCONTRADO)

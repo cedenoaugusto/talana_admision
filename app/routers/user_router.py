@@ -1,15 +1,11 @@
 
 import json
-import sys
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, APIRouter
 
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # para importar modulos de la app
-from models import UserPydantic, UserAlchemy, TriviaAlchemy, QuestionAlchemy, TriviaUserAlchemy, TriviaQuestionAlchemy, \
+from app.models import UserPydantic, UserAlchemy, TriviaAlchemy, QuestionAlchemy, TriviaUserAlchemy, TriviaQuestionAlchemy, \
     TriviaAnsweredPydantic, TriviaAnsweredAlchemy, AnswerAlchemy
-import database
+from app.database import get_connection
 
-from fastapi import APIRouter
 router = APIRouter()
 
 ITEM_NO_ENCONTRADO = "Usuario no encontrado."
@@ -29,7 +25,7 @@ def add_user(user: UserPydantic):
             estado = 'activo' if user.estado is None else user.estado,
         )
 
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_user = conexion.query(UserAlchemy).filter_by(email = usuario.email).first()
         if sqlalchemy_user:
             raise HTTPException(status_code=400, detail="Ya existe un usuario con ese correo.")
@@ -56,7 +52,7 @@ async def create_user(user: UserPydantic):
 async def read_users() -> list[UserPydantic]:
     """Leer todos los usuarios"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_users = conexion.query(UserAlchemy).all()
         pydantic_users = [UserPydantic.from_orm(user) for user in sqlalchemy_users]
         return pydantic_users
@@ -67,7 +63,7 @@ async def read_users() -> list[UserPydantic]:
 async def read_user(usuario_id: int) -> UserPydantic:
     """Lee un usuario"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_user = conexion.query(UserAlchemy).filter_by(id=usuario_id).first()
         if sqlalchemy_user:
             pydantic_user = UserPydantic.from_orm(sqlalchemy_user)
@@ -83,7 +79,7 @@ async def read_user(usuario_id: int) -> UserPydantic:
 async def update_user(usuario_id: int, user_object: UserPydantic):
     """Actualizar usuario"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         usuario = conexion.query(UserAlchemy).filter_by(id = usuario_id).first()
         if usuario:
             usuario.nombres = user_object.nombres
@@ -106,7 +102,7 @@ async def update_user(usuario_id: int, user_object: UserPydantic):
 async def delete_user(usuario_id: int):
     """Eliminar usuario"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_user = conexion.query(UserAlchemy).filter_by(id = usuario_id).first()
         if sqlalchemy_user:
             conexion.delete(sqlalchemy_user)
@@ -123,7 +119,7 @@ async def delete_user(usuario_id: int):
 async def read_user(usuario_id: int) -> UserPydantic:
     """Obtiene la trivia del usuario"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_user = conexion.query(UserAlchemy).filter_by(id = usuario_id).first()
         if sqlalchemy_user:
             pydantic_user = UserPydantic.from_orm(sqlalchemy_user)
@@ -139,7 +135,7 @@ async def read_user(usuario_id: int) -> UserPydantic:
 async def read_user(usuario_id) -> dict:
     """Lee un usuario"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
 
         # Obtener los usuarios y las trivias asociadas a este
         datos = (
@@ -173,7 +169,7 @@ def add_answer(rpta_usuario: TriviaAnsweredPydantic):
     """Agrega la respuesta"""
     conexion = None
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
 
         respuesta_alchemy = TriviaAnsweredAlchemy(
             trivia_id=rpta_usuario.trivia_id,

@@ -1,16 +1,11 @@
 import json
-import sys
 from sqlalchemy import desc
 from collections import defaultdict
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, APIRouter
 
-# modulos propios
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # para importar modulos de la app
-from models import TriviaPydantic, TriviaAlchemy, TriviaQuestionAlchemy, QuestionAlchemy, TriviaAnsweredAlchemy, TriviaAnsweredPydantic, UserAlchemy
-import database
+from app.models import TriviaPydantic, TriviaAlchemy, TriviaQuestionAlchemy, QuestionAlchemy, TriviaAnsweredAlchemy, UserAlchemy
+from app.database import get_connection
 
-from fastapi import APIRouter
 router = APIRouter()
 
 ITEM_NO_ENCONTRADO = "Trivia no encontrada."
@@ -27,7 +22,7 @@ def add_trivia(trivia: TriviaPydantic):
             descripcion = trivia.descripcion,
             estado = 'activo' if trivia.estado is None else trivia.estado,
         )
-        conexion = database.get_connection()
+        conexion = get_connection()
         conexion.add(trivia_item)
         conexion.commit()
         return trivia_item.id
@@ -49,7 +44,7 @@ async def create_trivia(trivia: TriviaPydantic):
 async def read_trivias() -> list[TriviaPydantic]:
     """Leer todas las trivias"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_trivias = conexion.query(TriviaAlchemy).all()
         pydantic_trivias = [TriviaPydantic.from_orm(trivia) for trivia in sqlalchemy_trivias]
         return pydantic_trivias
@@ -62,7 +57,7 @@ async def read_trivias() -> list[TriviaPydantic]:
 async def read_trivia(trivia_id) -> TriviaPydantic:
     """Leer una trivia"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_trivia = conexion.query(TriviaAlchemy).filter_by(id=trivia_id).first()
         if sqlalchemy_trivia:
             pydantic_trivia = TriviaPydantic.from_orm(sqlalchemy_trivia)
@@ -78,7 +73,7 @@ async def read_trivia(trivia_id) -> TriviaPydantic:
 async def read_trivia(trivia_id):
     """Leer una trivia"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_trivia = (
             conexion.query(TriviaAlchemy, TriviaQuestionAlchemy, QuestionAlchemy)
                 .join(TriviaQuestionAlchemy, TriviaAlchemy.id==TriviaQuestionAlchemy.trivia_id) # uno con la tabla relacion
@@ -117,7 +112,7 @@ async def read_trivia(trivia_id):
 async def update_trivia(trivia_id: int, trivia_object: TriviaPydantic):
     """Actualizar trivia"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_trivia = conexion.query(TriviaAlchemy).filter_by(id = trivia_id).first()
         if sqlalchemy_trivia:
             sqlalchemy_trivia.nombre = trivia_object.nombre
@@ -138,7 +133,7 @@ async def update_trivia(trivia_id: int, trivia_object: TriviaPydantic):
 async def delete_trivia(trivia_id: int):
     """Eliminar trivia"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         sqlalchemy_trivia = conexion.query(TriviaAlchemy).filter_by(id = trivia_id).first()
         if sqlalchemy_trivia:
             conexion.delete(sqlalchemy_trivia)
@@ -155,7 +150,7 @@ async def delete_trivia(trivia_id: int):
 async def read_trivia(trivia_id):
     """Leer una trivia"""
     try:
-        conexion = database.get_connection()
+        conexion = get_connection()
         ranking_alchemy = (
             conexion.query(TriviaAnsweredAlchemy, UserAlchemy, TriviaAlchemy)
                 .join(TriviaAlchemy, TriviaAlchemy.id==TriviaAnsweredAlchemy.trivia_id)
