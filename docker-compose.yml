@@ -1,0 +1,12 @@
+services:
+  app:
+    image: img_augusto
+    container_name: cont_augusto
+    # command: gunicorn --bind 0.0.0.0:5000 --workers 1 wsgi:app -t 15
+    # command: fastapi run main.py --port 5002
+    command: uvicorn wsgi:app --host 0.0.0.0 --port 5000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5000"
