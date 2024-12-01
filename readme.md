@@ -15,6 +15,10 @@ Puede levantar una version ejecutando el comando:
 docker compose up -d --build
 ```
 
+## Postman
+Dentro de la carpeta documentos se encuentra una coleccion para hacer pruebas a los diferentes endpoints.
+[Postman](https://www.postman.com/downloads/)
+
 ## Documentacion
 La documentacion esta en swagger, la cual estara disponible una vez que la api se este ejecutando.
 http://127.0.0.1:8000/docs
