@@ -1,6 +1,6 @@
-## Prueba de admision para Talana.
+## Prueba de admision para el ingreso Talana.
 
-API RRHH
+Desafio de una API para RRHH
 
 ## Documentacion
 http://127.0.0.1:8000/docs
