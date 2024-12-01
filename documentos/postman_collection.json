@@ -1,9 +1,873 @@
 {
 	"info": {
-		"_postman_id": "ff902f1d-7ed6-444f-8ed9-2677c14a982a",
-		"name": "temp",
+		"_postman_id": "03f7b40c-75e6-4009-9dd6-8b95b0dc1457",
+		"name": "Talana",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7402811"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "talana-challenge",
+			"item": [
+				{
+					"name": "usuarios",
+					"item": [
+						{
+							"name": "crear",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombres\": \"neo\",\r\n    \"apellidos\": \"anderson\",\r\n    \"email\": \"x2@pm.me\",\r\n    \"estado\": \"activo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "por_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombres\": \"augusto j\",\r\n    \"apellidos\": \"cedeño picon\",\r\n    \"email\": \"ac5@pm.me\",\r\n    \"estado\": \"activo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/5",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"confirm\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "preguntas",
+					"item": [
+						{
+							"name": "pregunta_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pregunta\": \"¿Cuanto es 2 + 2?\",\r\n    \"dificultad\": \"facil\",\r\n    \"puntaje\": 1,\r\n    \"estado\": \"activo\",\r\n    \"categoria\": \"Matematica\",\r\n    \"respuestas\": [\r\n        {\r\n            \"respuesta\": \"Uno\",\r\n            \"es_correcta\": false,\r\n            \"estado\": \"activo\"\r\n        },\r\n        {\r\n            \"respuesta\": \"Cuatro\",\r\n            \"es_correcta\": true,\r\n            \"estado\": \"activo\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pregunta_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pregunta\": \"¿Cuál es la capital de Chile?\",\r\n    \"dificultad\": \"facil\",\r\n    \"puntaje\": 1,\r\n    \"estado\": \"activo\",\r\n    \"categoria\": \"Geografia\",\r\n    \"respuestas\": [\r\n        {\r\n            \"respuesta\": \"Chile\",\r\n            \"es_correcta\": false,\r\n            \"estado\": \"activo\"\r\n        },\r\n        {\r\n            \"respuesta\": \"Santiago\",\r\n            \"es_correcta\": false,\r\n            \"estado\": \"activo\"\r\n        },\r\n        {\r\n            \"respuesta\": \"Santiago de Chile\",\r\n            \"es_correcta\": true,\r\n            \"estado\": \"activo\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "por_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 3,\r\n    \"pregunta\": \"¿Cuál es la capital de Chile?\",\r\n    \"dificultad\": \"facil\",\r\n    \"categoria\": \"Geografia\",\r\n    \"puntaje\": 1,\r\n    \"estado\": \"activo\",\r\n    \"respuestas\": [\r\n        {\r\n            \"id\": 22,\r\n            \"respuesta\": \"Chile\",\r\n            \"es_correcta\": false,\r\n            \"estado\": \"activo\",\r\n            \"pregunta_id\": 4\r\n        },\r\n        {\r\n            \"id\": 23,\r\n            \"respuesta\": \"Santiago\",\r\n            \"es_correcta\": false,\r\n            \"estado\": \"activo\",\r\n            \"pregunta_id\": 4\r\n        },\r\n        {\r\n            \"id\": 24,\r\n            \"respuesta\": \"Santiago de Chile\",\r\n            \"es_correcta\": true,\r\n            \"estado\": \"activo\",\r\n            \"pregunta_id\": 4\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"confirm\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/questions/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"questions",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "trivias",
+					"item": [
+						{
+							"name": "crear",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Mi trivia Talana\",\r\n    \"descripcion\": \"Descripcion\",\r\n    \"estado\": \"activo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "por_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "por_id & detallada",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/details",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ganador",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/1/ranking",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"1",
+										"ranking"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Mi trivia Dos\",\r\n    \"descripcion\": \"Prueba\",\r\n    \"estado\": \"activo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"confirm\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "trivia/preguntas",
+					"item": [
+						{
+							"name": "crear",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"trivia_id\": 1,\r\n        \"pregunta_id\": 1\r\n    },\r\n    {\r\n        \"trivia_id\": 1,\r\n        \"pregunta_id\": 2\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/questions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"questions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/1/questions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"1",
+										"questions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"confirm\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/questions/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"questions",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "trivia/usuarios",
+					"item": [
+						{
+							"name": "crear",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"trivia_id\": 1,\r\n        \"usuario_id\": 1\r\n    },\r\n    {\r\n        \"trivia_id\": 1,\r\n        \"usuario_id\": 2\r\n    },\r\n    {\r\n        \"trivia_id\": 4,\r\n        \"usuario_id\": 4\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/users",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "todas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/users",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "eliminar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"confirm\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/trivias/2/users/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"trivias",
+										"2",
+										"users",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "mis trivias",
+					"item": [
+						{
+							"name": "mis_trivias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/1/trivias",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"trivias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "enviar rpta 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"trivia_id\": 1,\r\n    \"usuario_id\": 2,\r\n    \"pregunta_id\": 1,\r\n    \"respuesta_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/3/trivias",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"3",
+										"trivias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "enviar rpta 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"usuario_id\": 3,\r\n    \"trivia_id\": 2,\r\n    \"pregunta_id\": 2,\r\n    \"respuesta_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/users/3/trivias",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"3",
+										"trivias"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Prueba de admision"
+		}
+	]
 }
